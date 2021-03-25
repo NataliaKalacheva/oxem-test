@@ -1,25 +1,18 @@
 import mutations from "@/store/mutations";
 
-const { TABLE_DATA, CURRENT_PAGE } = mutations;
+const { TABLE_DATA } = mutations;
 
 const tableStore = {
   namespaced: true,
   state: {
     tableData: [],
-    perPage: 50,
-    curPage: 1,
   },
   getters: {
     tableData: ({ tableData }) => tableData,
-    curPage: ({ curPage }) => curPage,
-    perPage: ({ perPage }) => perPage,
   },
   mutations: {
     [TABLE_DATA](state, value) {
       state.tableData = value;
-    },
-    [CURRENT_PAGE](state, value) {
-      state.curPage = value;
     },
   },
   actions: {
@@ -33,9 +26,6 @@ const tableStore = {
       } catch (err) {
         console.log(err);
       }
-    },
-    changeCurrentPage({ commit }, page) {
-      commit(CURRENT_PAGE, page);
     },
   },
 };

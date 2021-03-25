@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     sortTable: function (key) {
-      this.$emit("sortTable", key);
+      this.$emit("sort-table", key);
     },
   },
 };
