@@ -2,7 +2,8 @@
   <ul class="table-variants">
     <li v-for="variant in tableVariants" :key="variant.value">
       <button
-        :disabled="variant.value === selectedVariant.value"
+        class="waves-effect waves-light btn"
+        :disabled="isDisabled(variant)"
         @click="setTableVariant(variant.value)"
       >
         {{ variant.name }}
@@ -23,10 +24,19 @@ export default {
     selectedVariant: "fetchTableData",
   },
   computed: {
-    ...mapGetters("table", ["tableVariants", "selectedVariant"]),
+    ...mapGetters("table", [
+      "tableVariants",
+      "selectedVariant",
+      "isTableLoading",
+    ]),
   },
   methods: {
     ...mapActions("table", ["setTableVariant", "fetchTableData"]),
+    isDisabled(variant) {
+      return (
+        variant.value === this.selectedVariant.value || this.isTableLoading
+      );
+    },
   },
 };
 </script>

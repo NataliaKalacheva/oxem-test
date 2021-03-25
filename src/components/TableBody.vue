@@ -1,6 +1,6 @@
 <template>
   <tbody>
-    <tr v-for="(data, i) in bodyData" :key="`${data.id}-${i}`">
+    <tr v-for="(data, i) in bodyData" :key="`${data.id}-${i}`" tabindex="0">
       <td>{{ data.id }}</td>
       <td>{{ data.firstName }}</td>
       <td>{{ data.lastName }}</td>

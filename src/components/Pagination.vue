@@ -2,12 +2,20 @@
   <nav v-if="showPagination">
     <ul class="pagination">
       <li>
-        <button @click="goToPevious" :disabled="isActive(1)">Previous</button>
+        <button
+          @click="goToPevious"
+          :disabled="isActive(1)"
+          type="button"
+          class="waves-effect btn"
+        >
+          Previous
+        </button>
       </li>
 
       <li v-for="page in pagesToShow" :key="page">
         <button
           type="button"
+          class="waves-effect btn btn-flat"
           @click="goToPage(page)"
           :disabled="isActive(page)"
         >
@@ -16,7 +24,14 @@
       </li>
 
       <li>
-        <button @click="goToNext" :disabled="isActive(pagesQty)">Next</button>
+        <button
+          @click="goToNext"
+          :disabled="isActive(pagesQty)"
+          type="button"
+          class="waves-effect btn"
+        >
+          Next
+        </button>
       </li>
     </ul>
   </nav>

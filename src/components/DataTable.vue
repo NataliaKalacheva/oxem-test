@@ -1,7 +1,8 @@
 <template>
-  <div>
+  <div class="container">
+    <loader v-if="isTableLoading" />
     <template v-if="sortedData.length">
-      <table class="table">
+      <table class="responsive-table highlight centered">
         <table-head :columns="columns" @sort-table="onSortTable" />
         <table-body :bodyData="displayedTable" />
       </table>
@@ -12,13 +13,15 @@
         @page-change="onPageChange"
       />
     </template>
-    <template v-else>
+
+    <template v-else-if="!isTableLoading">
       <empty-msg />
     </template>
   </div>
 </template>
 
 <script>
+import Loader from "@/components/Loader";
 import TableHead from "@/components/TableHead";
 import TableBody from "@/components/TableBody";
 import Pagination from "@/components/Pagination";
@@ -32,6 +35,7 @@ export default {
     TableBody,
     Pagination,
     EmptyMsg,
+    Loader,
   },
   created() {
     this.fetchTableData();
@@ -43,8 +47,13 @@ export default {
     curPage: 1,
     perPage: 10,
   }),
+  watch: {
+    tableData: function () {
+      this.curPage = 1;
+    },
+  },
   computed: {
-    ...mapGetters("table", ["tableData"]),
+    ...mapGetters("table", ["tableData", "isTableLoading"]),
     sortedData() {
       const key = this.curSortedBy;
       return [...this.tableData].sort((a, b) => {

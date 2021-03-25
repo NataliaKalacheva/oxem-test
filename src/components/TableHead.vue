@@ -2,7 +2,11 @@
   <thead>
     <tr>
       <template v-for="item in columns">
-        <th :key="item" @click="sortTable(item)">{{ item }}</th>
+        <th :key="item">
+          <button @click="sortTable(item)" class="btn-flat">
+            {{ item }}
+          </button>
+        </th>
       </template>
     </tr>
   </thead>

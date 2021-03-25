@@ -1,10 +1,11 @@
 import mutations from "@/store/mutations";
 
-const { TABLE_DATA, SELECTED_VARIANT_VALUE } = mutations;
+const { TABLE_DATA, SELECTED_VARIANT_VALUE, TOGGLE_TABLE_LOADER } = mutations;
 
 const tableStore = {
   namespaced: true,
   state: {
+    isTableLoading: false,
     selectedVariantValue: "mini_data",
     tableVariants: {
       mini_data: {
@@ -27,6 +28,7 @@ const tableStore = {
     tableVariants: ({ tableVariants }) => tableVariants,
     selectedVariant: ({ tableVariants, selectedVariantValue }) =>
       tableVariants[selectedVariantValue],
+    isTableLoading: ({ isTableLoading }) => isTableLoading,
   },
   mutations: {
     [TABLE_DATA](state, value) {
@@ -35,20 +37,29 @@ const tableStore = {
     [SELECTED_VARIANT_VALUE](state, value) {
       state.selectedVariantValue = value;
     },
+    [TOGGLE_TABLE_LOADER](state, value) {
+      state.isTableLoading = value;
+    },
   },
   actions: {
-    async fetchTableData({ commit, getters }) {
+    async fetchTableData({ commit, getters, dispatch }) {
       try {
+        dispatch("toggleTableLoader", true);
         const url = `${process.env.VUE_APP_BASE_API_URL}${getters.selectedVariant.path}`;
         const response = await fetch(url);
         const data = await response.json();
         commit(TABLE_DATA, data);
       } catch (err) {
         throw new Error(err);
+      } finally {
+        dispatch("toggleTableLoader", false);
       }
     },
     setTableVariant({ commit }, value) {
       commit(SELECTED_VARIANT_VALUE, value);
+    },
+    toggleTableLoader({ commit }, value) {
+      commit(TOGGLE_TABLE_LOADER, value);
     },
   },
 };
