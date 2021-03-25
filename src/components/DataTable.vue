@@ -3,7 +3,12 @@
     <loader v-if="isTableLoading" />
     <template v-if="sortedData.length">
       <table class="responsive-table highlight centered">
-        <table-head :columns="columns" @sort-table="onSortTable" />
+        <table-head
+          :columns="columns"
+          :curSortKey="curSortedBy"
+          :reverse="reverse"
+          @sort-table="onSortTable"
+        />
         <table-body :bodyData="displayedTable" />
       </table>
       <pagination
