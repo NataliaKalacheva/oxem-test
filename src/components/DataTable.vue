@@ -1,7 +1,9 @@
 <template>
   <div class="container">
     <loader v-if="isTableLoading" />
-    <template v-if="sortedData.length">
+
+    <template v-if="tableData.length">
+      <search-input @input="onSearch" />
       <table class="responsive-table highlight centered">
         <table-head
           :columns="columns"
@@ -12,7 +14,7 @@
         <table-body :bodyData="displayedTable" />
       </table>
       <pagination
-        :total="sortedData.length"
+        :total="filteredData.length"
         :per-page="perPage"
         :cur-page="curPage"
         @page-change="onPageChange"
@@ -31,6 +33,7 @@ import TableHead from "@/components/TableHead";
 import TableBody from "@/components/TableBody";
 import Pagination from "@/components/Pagination";
 import EmptyMsg from "@/components/EmptyMsg";
+import SearchInput from "@/components/SearchInput";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
@@ -41,11 +44,13 @@ export default {
     Pagination,
     EmptyMsg,
     Loader,
+    SearchInput,
   },
   created() {
     this.fetchTableData();
   },
   data: () => ({
+    filteredBy: "",
     curSortedBy: "id",
     reverse: false,
     columns: ["id", "firstName", "lastName", "email", "phone"],
@@ -70,11 +75,20 @@ export default {
         return 0;
       });
     },
+    filteredData() {
+      return this.sortedData.filter((data) => {
+        const string = JSON.stringify(data).toLowerCase();
+        const filterKey = this.filteredBy.toLowerCase();
+        return string.includes(filterKey);
+      });
+    },
     displayedTable() {
       let from = this.curPage * this.perPage - this.perPage;
       let to = this.curPage * this.perPage;
 
-      return this.sortedData.slice(from, to);
+      return this.filteredBy.length
+        ? this.filteredData.slice(from, to)
+        : this.sortedData.slice(from, to);
     },
   },
   methods: {
@@ -85,6 +99,10 @@ export default {
     },
     onPageChange(page) {
       this.curPage = page;
+    },
+    onSearch(value) {
+      this.curPage = 1;
+      this.filteredBy = value;
     },
   },
 };
