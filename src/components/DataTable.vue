@@ -1,36 +1,37 @@
 <template>
   <div>
-    <table class="table">
-      <table-head :columns="columns" @sort-table="onSortTable" />
-      <tbody>
-        <tr v-for="(data, i) in displayedTable" :key="`${data.id}${i}`">
-          <td>{{ data.id }}</td>
-          <td>{{ data.firstName }}</td>
-          <td>{{ data.lastName }}</td>
-          <td>{{ data.email }}</td>
-          <td>{{ data.phone }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <pagination
-      :total="sortedData.length"
-      :per-page="perPage"
-      :cur-page="curPage"
-      @page-change="onPageChange"
-    />
+    <template v-if="sortedData.length">
+      <table class="table">
+        <table-head :columns="columns" @sort-table="onSortTable" />
+        <table-body :bodyData="displayedTable" />
+      </table>
+      <pagination
+        :total="sortedData.length"
+        :per-page="perPage"
+        :cur-page="curPage"
+        @page-change="onPageChange"
+      />
+    </template>
+    <template v-else>
+      <empty-msg />
+    </template>
   </div>
 </template>
 
 <script>
 import TableHead from "@/components/TableHead";
+import TableBody from "@/components/TableBody";
 import Pagination from "@/components/Pagination";
+import EmptyMsg from "@/components/EmptyMsg";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "DataTable",
   components: {
     TableHead,
+    TableBody,
     Pagination,
+    EmptyMsg,
   },
   created() {
     this.fetchTableData();
@@ -69,7 +70,6 @@ export default {
       this.curSortedBy = sortBy;
     },
     onPageChange(page) {
-      console.log(page);
       this.curPage = page;
     },
   },

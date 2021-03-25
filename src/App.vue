@@ -1,17 +1,20 @@
 <template>
   <div id="app">
     <h1>Hello World!</h1>
+    <table-variants />
     <data-table />
   </div>
 </template>
 
 <script>
 import DataTable from "./components/DataTable.vue";
+import TableVariants from "@/components/TableVariants";
 
 export default {
   name: "App",
   components: {
     DataTable,
+    TableVariants,
   },
 };
 </script>

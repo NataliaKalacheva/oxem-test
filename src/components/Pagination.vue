@@ -1,5 +1,5 @@
 <template>
-  <nav>
+  <nav v-if="showPagination">
     <ul class="pagination">
       <li>
         <button @click="goToPevious" :disabled="isActive(1)">Previous</button>
@@ -43,6 +43,9 @@ export default {
     visibleQty: 10,
   }),
   computed: {
+    showPagination() {
+      return this.total !== this.perPage;
+    },
     pagesQty() {
       return Math.ceil(this.total / this.perPage);
     },
