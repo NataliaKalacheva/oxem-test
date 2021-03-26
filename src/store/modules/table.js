@@ -22,6 +22,7 @@ const tableStore = {
       },
     },
     tableData: [],
+    
   },
   getters: {
     tableData: ({ tableData }) => tableData,

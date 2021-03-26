@@ -1,6 +1,12 @@
 <template>
   <tbody>
-    <tr v-for="(data, i) in bodyData" :key="`${data.id}-${i}`" tabindex="0">
+    <tr
+      v-for="(data, i) in bodyData"
+      :key="`${data.id}-${i}`"
+      tabindex="0"
+      @click="onRowSelected(data)"
+      @focus="onRowSelected(data)"
+    >
       <td>{{ data.id }}</td>
       <td>{{ data.firstName }}</td>
       <td>{{ data.lastName }}</td>
@@ -17,6 +23,11 @@ export default {
     bodyData: {
       type: Array,
       required: true,
+    },
+  },
+  methods: {
+    onRowSelected(data) {
+      this.$emit("row-selected", data);
     },
   },
 };

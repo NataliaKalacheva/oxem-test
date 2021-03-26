@@ -11,7 +11,7 @@
           :reverse="reverse"
           @sort-table="onSortTable"
         />
-        <table-body :bodyData="displayedTable" />
+        <table-body :bodyData="displayedTable" @row-selected="onRowSelected" />
       </table>
       <pagination
         :total="filteredData.length"
@@ -19,6 +19,7 @@
         :cur-page="curPage"
         @page-change="onPageChange"
       />
+      <table-row-details :data="selectedRow" />
     </template>
 
     <template v-else-if="!isTableLoading">
@@ -31,6 +32,7 @@
 import Loader from "@/components/Loader";
 import TableHead from "@/components/TableHead";
 import TableBody from "@/components/TableBody";
+import TableRowDetails from "@/components/TableRowDetails";
 import Pagination from "@/components/Pagination";
 import EmptyMsg from "@/components/EmptyMsg";
 import SearchInput from "@/components/SearchInput";
@@ -41,6 +43,7 @@ export default {
   components: {
     TableHead,
     TableBody,
+    TableRowDetails,
     Pagination,
     EmptyMsg,
     Loader,
@@ -56,6 +59,7 @@ export default {
     columns: ["id", "firstName", "lastName", "email", "phone"],
     curPage: 1,
     perPage: 10,
+    selectedRow: {},
   }),
   watch: {
     tableData: function () {
@@ -103,6 +107,9 @@ export default {
     onSearch(value) {
       this.curPage = 1;
       this.filteredBy = value;
+    },
+    onRowSelected(data) {
+      this.selectedRow = data;
     },
   },
 };
