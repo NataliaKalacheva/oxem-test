@@ -5,9 +5,9 @@
     <template v-if="tableData.length">
       <div class="row">
         <div class="col s12 m4">
-          <search-input
-            v-model="filteredBy"
-            @input="onSearch"
+          <table-search-form
+            @submit="onSearch"
+            @cleared="clearFilter"
             :label="'Search'"
           />
         </div>
@@ -33,6 +33,9 @@
         :cur-page="curPage"
         @page-change="onPageChange"
       />
+      <template v-if="!filteredData.length">
+        <empty-msg>No matched data</empty-msg>
+      </template>
       <table-row-details :data="selectedRow" />
     </template>
 
@@ -49,7 +52,7 @@ import TableBody from "@/components/Table/TableBody";
 import TableRowDetails from "@/components/Table/TableRowDetails";
 import Pagination from "@/components/Common/Pagination";
 import EmptyMsg from "@/components/Common/EmptyMsg";
-import SearchInput from "@/components/Ui/UiSearchInput";
+import TableSearchForm from "@/components/Table/TableSearchForm";
 import ToggleForm from "@/components/Common/ToggleForm";
 import TableForm from "@/components/Table/TableForm";
 import { mapActions, mapGetters } from "vuex";
@@ -63,7 +66,7 @@ export default {
     Pagination,
     EmptyMsg,
     Loader,
-    SearchInput,
+    TableSearchForm,
     TableForm,
     ToggleForm,
   },
@@ -76,7 +79,7 @@ export default {
     reverse: false,
     columns: ["id", "firstName", "lastName", "email", "phone"],
     curPage: 1,
-    perPage: 50,
+    perPage: 25,
     selectedRow: {},
   }),
   watch: {
@@ -119,8 +122,12 @@ export default {
       this.reverse = this.curSortedBy == sortBy ? !this.reverse : false;
       this.curSortedBy = sortBy;
     },
-    onSearch() {
+    onSearch(value) {
       this.curPage = 1;
+      this.filteredBy = value;
+    },
+    clearFilter() {
+      this.filteredBy = "";
     },
     onPageChange(page) {
       this.curPage = page;

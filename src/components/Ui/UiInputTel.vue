@@ -15,6 +15,7 @@
 <script>
 export default {
   name: "UiInput",
+  inheritAttrs: false,
   props: {
     label: {
       type: String,

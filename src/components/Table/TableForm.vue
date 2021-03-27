@@ -7,7 +7,6 @@
         type="number"
         :label="'Id'"
         :helper="errors.id"
-        :value="formData.id"
         v-model.number="formData.id"
       />
       <ui-input
