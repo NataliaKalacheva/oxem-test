@@ -4,14 +4,14 @@
 
     <template v-if="tableData.length">
       <div class="row">
-        <div class="col s12 m6">
+        <div class="col s12 m4">
           <search-input
             v-model="filteredBy"
             @input="onSearch"
             :label="'Search'"
           />
         </div>
-        <div class="col s12 m6">
+        <div class="col s12 m8">
           <toggle-form>
             <template v-slot:content><table-form /></template>
           </toggle-form>

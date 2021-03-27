@@ -1,5 +1,4 @@
 import mutations from "@/store/mutations";
-import Vue from "vue";
 
 const {
   TABLE_DATA,
@@ -47,7 +46,7 @@ const tableStore = {
       state.isTableLoading = value;
     },
     [ADD_ROW](state, item) {
-      Vue.set(state.tableData, item.id, item);
+      state.tableData.push(item);
     },
   },
   actions: {

@@ -7,6 +7,7 @@
         type="number"
         :label="'Id'"
         :helper="errors.id"
+        :value="formData.id"
         v-model.number="formData.id"
       />
       <ui-input
@@ -61,8 +62,12 @@ import { mapActions } from "vuex";
 import "@/helpers/masks/phone.js";
 import UiInput from "@/components/Ui/UiInput";
 import UiInputTel from "@/components/Ui/UiInputTel";
-import checkPhone from "@/helpers/validators/checkPhone.js";
-import checkNumber from "@/helpers/validators/checkNumber.js";
+import {
+  checkPhone,
+  checkNumber,
+  checkEmail,
+  checkOnlyLetters,
+} from "@/helpers/validators/validators.js";
 
 export default {
   name: "TableForm",
@@ -88,8 +93,8 @@ export default {
   }),
   computed: {
     isFormFilled() {
-      return Object.keys(this.formData).every((key) =>
-        Boolean(this.formData[key])
+      return Object.keys(this.formData).every(
+        (key) => this.formData[key] != null
       );
     },
   },
@@ -98,10 +103,16 @@ export default {
     clearErrors() {
       Object.keys(this.errors).forEach((key) => (this.errors[key] = null));
     },
+    clearForm() {
+      Object.keys(this.formData).forEach((key) => (this.formData[key] = null));
+    },
     onSubmitForm(e) {
       e.preventDefault();
       this.clearErrors();
-      this.validateForm();
+      if (this.validateForm()) {
+        this.addNewItem({ ...this.formData });
+        this.clearForm();
+      }
     },
     validateForm() {
       let valid = true;
@@ -113,10 +124,21 @@ export default {
         this.errors.phone = "Phone should contain 13 symbols as (999)888-7777";
         valid = false;
       }
+      if (!checkEmail(this.formData.email)) {
+        this.errors.email = "Please enter valid email as example@gmail.com";
+        valid = false;
+      }
+      if (!checkOnlyLetters(this.formData.firstName)) {
+        this.errors.firstName = "Please enter only letters, min length 3";
+        valid = false;
+      }
+      if (!checkOnlyLetters(this.formData.lastName)) {
+        this.errors.lastName = "Please enter only letters, min length 3";
+        valid = false;
+      }
 
       return valid;
     },
-    submitForm() {},
   },
 };
 </script>
