@@ -1,13 +1,8 @@
-const checkNumber = (value, callback) => {
-  if (!value) {
-    callback(new Error("Please input the value"));
+const checkNumber = (value) => {
+  if (!value || !Number.isInteger(value) || value <= 0) {
+    return false;
   }
-  if (!Number.isInteger(value)) {
-    callback(new Error("Please input digits"));
-  } else if (value <= 0) {
-    callback(new Error("Value must be greater than 0"));
-  } else {
-    callback();
-  }
+  return true;
 };
+
 export default checkNumber;

@@ -9,7 +9,7 @@
           Описание:
           <ui-text-area
             :data="data.description"
-            @input="onInput"
+            v-model="data.description"
             class="materialize-textarea"
           ></ui-text-area>
         </p>
@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import UiTextArea from "@/components/UiTextArea";
+import UiTextArea from "@/components/Ui/UiTextArea";
 
 export default {
   name: "TableRowDetails",
@@ -47,11 +47,6 @@ export default {
   computed: {
     fullName() {
       return `${this.data.firstName} ${this.data.lastName}`;
-    },
-  },
-  methods: {
-    onInput(value) {
-      this.data.description = value;
     },
   },
 };

@@ -83,7 +83,7 @@ export default {
   }),
   computed: {
     showPagination() {
-      return this.total !== this.perPage;
+      return this.total <= this.perPage ? false : true;
     },
     pagesQty() {
       return Math.ceil(this.total / this.perPage);
@@ -101,7 +101,6 @@ export default {
       this.$emit("page-change", this.curPage - 1);
     },
     goToPage(page) {
-      console.log(page);
       this.$emit("page-change", page);
     },
     goToNext() {

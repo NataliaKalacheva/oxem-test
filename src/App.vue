@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import DataTable from "./components/DataTable.vue";
-import TableVariants from "@/components/TableVariants";
+import DataTable from "./components/Table/DataTable.vue";
+import TableVariants from "@/components/Table/TableVariants";
 
 export default {
   name: "App",

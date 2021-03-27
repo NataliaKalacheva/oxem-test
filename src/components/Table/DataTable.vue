@@ -5,10 +5,16 @@
     <template v-if="tableData.length">
       <div class="row">
         <div class="col s12 m6">
-          <search-input @input="onSearch" />
+          <search-input
+            v-model="filteredBy"
+            @input="onSearch"
+            :label="'Search'"
+          />
         </div>
         <div class="col s12 m6">
-          <toggle-form><table-form /></toggle-form>
+          <toggle-form>
+            <template v-slot:content><table-form /></template>
+          </toggle-form>
         </div>
       </div>
 
@@ -37,15 +43,15 @@
 </template>
 
 <script>
-import Loader from "@/components/Loader";
-import TableHead from "@/components/TableHead";
-import TableBody from "@/components/TableBody";
-import TableRowDetails from "@/components/TableRowDetails";
-import Pagination from "@/components/Pagination";
-import EmptyMsg from "@/components/EmptyMsg";
-import SearchInput from "@/components/SearchInput";
-import ToggleForm from "@/components/ToggleForm";
-import TableForm from "@/components/TableForm";
+import Loader from "@/components/Ui/UiLoader";
+import TableHead from "@/components/Table/TableHead";
+import TableBody from "@/components/Table/TableBody";
+import TableRowDetails from "@/components/Table/TableRowDetails";
+import Pagination from "@/components/Common/Pagination";
+import EmptyMsg from "@/components/Common/EmptyMsg";
+import SearchInput from "@/components/Ui/UiSearchInput";
+import ToggleForm from "@/components/Common/ToggleForm";
+import TableForm from "@/components/Table/TableForm";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
@@ -70,7 +76,7 @@ export default {
     reverse: false,
     columns: ["id", "firstName", "lastName", "email", "phone"],
     curPage: 1,
-    perPage: 10,
+    perPage: 50,
     selectedRow: {},
   }),
   watch: {
@@ -113,12 +119,11 @@ export default {
       this.reverse = this.curSortedBy == sortBy ? !this.reverse : false;
       this.curSortedBy = sortBy;
     },
+    onSearch() {
+      this.curPage = 1;
+    },
     onPageChange(page) {
       this.curPage = page;
-    },
-    onSearch(value) {
-      this.curPage = 1;
-      this.filteredBy = value;
     },
     onRowSelected(data) {
       this.selectedRow = data;

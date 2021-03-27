@@ -1,14 +1,15 @@
 <template>
   <div class="toggle-form">
-    <button
-      @click="toggleForm"
-      class="btn-floating btn-large waves-effect waves-light"
-    >
-      <i class="material-icons">add</i>
+    <button @click="toggleForm" class="btn-large waves-effect waves-light">
+      <slot name="button">
+        <span class="valign-wrapper">
+          <i class="material-icons">add</i> Добавить
+        </span>
+      </slot>
     </button>
 
     <div v-if="isVisible" class="row">
-      <slot />
+      <slot name="content" />
     </div>
   </div>
 </template>
