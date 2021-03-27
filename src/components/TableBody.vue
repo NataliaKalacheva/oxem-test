@@ -1,6 +1,7 @@
 <template>
   <tbody>
     <tr
+      class="table-row"
       v-for="(data, i) in bodyData"
       :key="`${data.id}-${i}`"
       tabindex="0"
@@ -32,3 +33,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.table-row:focus {
+  outline-color: #4db6ac;
+}
+</style>

@@ -1,33 +1,31 @@
 <template>
   <div v-if="data.id" class="row">
-    <div class="col s12 m5">
-      <div class="card-panel teal">
-        <span class="white-text">
-          <p>
-            Выбран пользователь: <b>{{ fullName }}</b>
-          </p>
-          <p>
-            Описание:
-            <ui-text-area
-              :data="data.description"
-              @input="onInput"
-              class="materialize-textarea"
-            ></ui-text-area>
-          </p>
-          <p>
-            Адрес проживания: <b>{{ data.address.streetAddress }}</b>
-          </p>
-          <p>
-            Город: <b>{{ data.address.city }}</b>
-          </p>
-          <p>
-            Провинция/штат: <b>{{ data.address.state }}</b>
-          </p>
-          <p>
-            Индекс: <b>{{ data.address.zip }}</b>
-          </p>
-        </span>
-      </div>
+    <div class="card-panel teal">
+      <span class="white-text">
+        <p>
+          Выбран пользователь: <b>{{ fullName }}</b>
+        </p>
+        <p>
+          Описание:
+          <ui-text-area
+            :data="data.description"
+            @input="onInput"
+            class="materialize-textarea"
+          ></ui-text-area>
+        </p>
+        <p>
+          Адрес проживания: <b>{{ data.address.streetAddress }}</b>
+        </p>
+        <p>
+          Город: <b>{{ data.address.city }}</b>
+        </p>
+        <p>
+          Провинция/штат: <b>{{ data.address.state }}</b>
+        </p>
+        <p>
+          Индекс: <b>{{ data.address.zip }}</b>
+        </p>
+      </span>
     </div>
   </div>
 </template>
@@ -58,3 +56,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.card-panel {
+  text-align: left;
+}
+</style>

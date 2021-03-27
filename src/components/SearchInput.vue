@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="input-field col s6">
+    <div class="input-field col s12 m8">
       <input
         id="first_name2"
         type="text"
@@ -29,3 +29,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.input-field.col {
+  padding: 0 0;
+}
+</style>

@@ -1,6 +1,12 @@
 import mutations from "@/store/mutations";
+import Vue from "vue";
 
-const { TABLE_DATA, SELECTED_VARIANT_VALUE, TOGGLE_TABLE_LOADER } = mutations;
+const {
+  TABLE_DATA,
+  SELECTED_VARIANT_VALUE,
+  TOGGLE_TABLE_LOADER,
+  ADD_ROW,
+} = mutations;
 
 const tableStore = {
   namespaced: true,
@@ -22,7 +28,6 @@ const tableStore = {
       },
     },
     tableData: [],
-    
   },
   getters: {
     tableData: ({ tableData }) => tableData,
@@ -40,6 +45,9 @@ const tableStore = {
     },
     [TOGGLE_TABLE_LOADER](state, value) {
       state.isTableLoading = value;
+    },
+    [ADD_ROW](state, item) {
+      Vue.set(state.tableData, item.id, item);
     },
   },
   actions: {
@@ -61,6 +69,9 @@ const tableStore = {
     },
     toggleTableLoader({ commit }, value) {
       commit(TOGGLE_TABLE_LOADER, value);
+    },
+    addNewItem({ commit }, item) {
+      commit("ADD_ROW", item);
     },
   },
 };

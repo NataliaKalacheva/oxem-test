@@ -3,7 +3,15 @@
     <loader v-if="isTableLoading" />
 
     <template v-if="tableData.length">
-      <search-input @input="onSearch" />
+      <div class="row">
+        <div class="col s12 m6">
+          <search-input @input="onSearch" />
+        </div>
+        <div class="col s12 m6">
+          <toggle-form><table-form /></toggle-form>
+        </div>
+      </div>
+
       <table class="responsive-table highlight centered">
         <table-head
           :columns="columns"
@@ -36,6 +44,8 @@ import TableRowDetails from "@/components/TableRowDetails";
 import Pagination from "@/components/Pagination";
 import EmptyMsg from "@/components/EmptyMsg";
 import SearchInput from "@/components/SearchInput";
+import ToggleForm from "@/components/ToggleForm";
+import TableForm from "@/components/TableForm";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
@@ -48,6 +58,8 @@ export default {
     EmptyMsg,
     Loader,
     SearchInput,
+    TableForm,
+    ToggleForm,
   },
   created() {
     this.fetchTableData();
