@@ -1,6 +1,6 @@
 <template>
   <div class="toggle-form">
-    <button @click="toggleForm" class="btn-large waves-effect waves-light">
+    <button @click="toggleForm" class="btn waves-effect waves-light">
       <slot name="button">
         <span class="valign-wrapper">
           <i class="material-icons">add</i> Добавить
@@ -30,6 +30,7 @@ export default {
 
 <style scoped>
 .toggle-form {
+  padding-top: 40px;
   text-align: right;
 }
 </style>
