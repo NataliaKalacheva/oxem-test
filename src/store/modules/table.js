@@ -55,7 +55,7 @@ const tableStore = {
       commit(TOGGLE_TABLE_LOADER, value);
     },
     addNewItem({ commit }, item) {
-      commit("ADD_ROW", item);
+      commit(ADD_ROW, item);
     },
   },
 };

@@ -1,6 +1,6 @@
 <template>
   <div v-if="showPagination" class="row">
-    <nav class="col">
+    <nav class="col transparent z-depth-0">
       <ul class="pagination">
         <li>
           <button

@@ -142,7 +142,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .table-form {
   text-align: left;
 }

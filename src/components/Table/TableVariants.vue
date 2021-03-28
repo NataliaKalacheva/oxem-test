@@ -38,7 +38,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .table-variants {
   list-style: none;
   display: flex;
