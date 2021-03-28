@@ -1,6 +1,6 @@
 <template>
   <ul class="table-variants">
-    <li v-for="variant in tableVariants" :key="variant.value">
+    <li v-for="variant in variants" :key="variant.value">
       <button
         class="waves-effect waves-light btn"
         :disabled="isDisabled(variant)"
@@ -14,21 +14,18 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import tableVariants from "@/constants/tableVariants";
 
 export default {
   name: "TableVariants",
   data: () => ({
-    variants: ["Mini Data", "Big Data"],
+    variants: tableVariants,
   }),
   watch: {
     selectedVariant: "fetchTableData",
   },
   computed: {
-    ...mapGetters("table", [
-      "tableVariants",
-      "selectedVariant",
-      "isTableLoading",
-    ]),
+    ...mapGetters("table", ["selectedVariant", "isTableLoading"]),
   },
   methods: {
     ...mapActions("table", ["setTableVariant", "fetchTableData"]),
