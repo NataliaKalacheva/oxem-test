@@ -2,7 +2,7 @@ module.exports = {
   clearMocks: true,
   collectCoverageFrom: ["src/**/*.js"],
   coverageDirectory: "coverage",
-  moduleFileExtensions: ["js"],
+  moduleFileExtensions: ["js", "vue"],
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/src/$1",
   },
